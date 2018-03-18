@@ -1,0 +1,85 @@
+{% extends 'blog/base.html' %}
+{% load staticfiles %}
+
+
+{% block content %}
+<main role="main">
+    <div class="container" style="display:table; height:300px;">
+            <div class="text-center" style="display:table-cell; vertical-align:middle;">
+                <h3 class="text-secondary">Request and Join for Hearings!</h3>
+                <p><a href="{% url 'post_new' %}" class="btn btn-dark">Request</a></p>
+            </div>
+    </div>
+    <!--
+    <img src="{% static 'blog/01.jpg' %}" />
+    -->
+         <div class="container">
+              <div class="row">
+                  {% for post in posts %}
+                  <div class="col-md-4 ">
+                      <div class="card mb-12 box-shadow border-dark mb-3">
+                          <div class="card-header">
+                            <a href="{% url 'post_detail' pk=post.pk %}" style="color:black;"><strong>{{ post.lec }}</strong></a>
+                            {% if not user.is_superuser %}
+                                {% if post.status == '모집중' %}
+                                    <span class="badge badge-primary" style="float:right">{{ post.status }}</span></h6>
+                                {% elif post.status == '준비중'%}
+                                    <span class="badge badge-success" style="float:right">{{ post.status }}</span></h6>
+                                {% elif post.status == '제작중' %}
+                                    <span class="badge badge-info" style="float:right">{{ post.status }}</span></h6>
+                                {% elif post.status == '배포완료' %}
+                                    <span class="badge badge-light" style="float:right">{{ post.status }}</span></h6>
+                                {% elif post.status == '제작중단' %}
+                                <span class="badge badge-dark" style="float:right">{{ post.status }}</span></h6>
+                                {% endif %}
+                            {% else %}
+                              <form action="" method="post">
+                                {% csrf_token %}
+                                <table>
+                                  {{ form }}
+                                </table>
+                                <input type="submit" value="상태변경">
+
+                                <input type="hidden" name="post.id" value="{{ post.id }}">
+                                <!-- <span class="badge badge-primary" style="float:right">{{ post.status }}</span></h6> -->
+                                {% if post.status == '모집중' %}
+                                    <span class="badge badge-primary" style="float:right">{{ post.status }}</span></h6>
+                                {% elif post.status == '준비중'%}
+                                    <span class="badge badge-success" style="float:right">{{ post.status }}</span></h6>
+                                {% elif post.status == '제작중' %}
+                                    <span class="badge badge-info" style="float:right">{{ post.status }}</span></h6>
+                                {% elif post.status == '배포완료' %}
+                                    <span class="badge badge-light" style="float:right">{{ post.status }}</span></h6>
+                                {% elif post.status == '제작중단' %}
+                                <span class="badge badge-dark" style="float:right">{{ post.status }}</span></h6>
+                                {% endif %}
+                              </form>
+
+
+
+                            {% endif %}
+                          </div>
+
+                          <div class="card-body">
+                              <p class="card-text">No : {{ post.id }}</p>
+                              <p class="card-text">강사 : {{ post.lec_teacher }}</p>
+                              <p class="card-text">강의 주소 : {{ post.lec_url }}</p>
+                              <p class="card-text"><small>{{ post.published_date }}</small></p>
+                              <div class="progress">
+                                <div class="progress-bar" role="progressbar" style="width: {{ post.view_cnt }}%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">{{ post.view_cnt }}</div>
+                              </div>
+                              <div class="d-flex justify-content-between align-items-center">
+                                  <div class="btn-group">
+                                      <button type="button" class="btn btn-sm btn-outline-secondary"><a href="{% url 'post_detail' pk=post.pk %}" style="color:black;">Join</a></button>
+                                      <button type="button" class="btn btn-sm btn-outline-secondary"><a style="color:black;">{{ post.view_cnt }}</a></button>
+                                  </div>
+                                  <!--Time 삽입-->
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                  {% endfor %}
+              </div>
+         </div>
+</main>
+{% endblock %}

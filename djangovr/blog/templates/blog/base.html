@@ -1,0 +1,150 @@
+<!doctype html>
+{% load staticfiles %}
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hearings, beta</title>
+    <!-- Bootstrap core CSS -->
+
+    <link rel="stylesheet" type="text/css" href="{% static 'static/css/blog.css' %}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <style>
+    /* #gridmenu {
+      display:grid;
+      border:1px solid red;
+      grid-template-columns: 100px;
+    } */
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="container" style="height:100px; line-height:100px; width:100%;">
+      <nav class="navbar">
+          <a class="navbar-brand" href="/" style="color:black; display:inline; border: 1px solid red;"><strong>Hearings</strong>, beta</a>
+          <div style="display: flex; flex-direction: column">
+          <div class="row">
+            <ul id="gridmenu" class="nav justify-content-end">
+              {% if not user.is_authenticated %}
+                  <li class="nav-item">
+                    <a class="nav-link active text-muted" href="{% url "login" %}?next={{ request.path }}" style="color:black;">로그인</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link active text-muted" href="{% url "signup" %}" style="color:black;">회원가입</a>
+                  </li>
+              {% else %}
+                  <li class="nav-item">
+                    <a class="nav-link active text-muted" href="{% url "profile" %}" style="color:black;">마이페이지</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link active text-muted" href="{% url "logout" %}?next={{ request.path }}" style="color:black;">로그아웃</a>
+                  </li>
+              {% endif %}
+            </ul>
+          </div>
+          <div class="row" style="">
+            <ul id="gridmenu" class="nav justify-content-end">
+              <li class="nav-item">
+                <a class="nav-link active text-muted" href="/" style="color:black;"><strong>Home</strong></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active text-muted" href="{% url 'introduce_voithru' %}" style="color:black;"><strong>Info</strong></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active text-muted" href="{% url 'introduce_service' %}" style="color:black;"><strong>Service</strong></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active text-muted" href="{% url 'post_new' %}" style="color:black;"><strong>Request</strong></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active text-muted" href="." style="color:black;"><strong>Feedback</strong></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active text-muted" href="." style="color:black;"><strong>Help</strong></a>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        </div>
+      </nav>
+  </div>
+
+
+
+
+
+
+  <!-- <nav class="navbar navbar-default">
+      <div class="container">
+          <div class="col-md-2">
+              <a class="navbar-brand" href="/" style="position:relative;top:10px;color:black" /><strong>Hearings</strong>, beta</a>
+          </div>
+          <div class="col-md-10">
+              <div class="row">
+                  <div class="col-md-1 col-md-offset-6">
+                      <div class="navbar-text text-right">
+                        <p><a class="nav-link active text-muted" href="#" style="color:black; float: right;">Login</a>
+                        </p>
+                      </div>
+                  </div>
+              </div>
+              <div class="row">
+                  <div class="col-md-12">
+                    <ul class="nav justify-content-end">
+                                   <li class="nav-item">
+                                     <a class="nav-link active text-muted" href="/" style="color:black;"><strong>Home</strong></a>
+                                   </li>
+                                   <li class="nav-item">
+                                     <a class="nav-link active text-muted" href="{% url 'introduce_voithru' %}" style="color:black;"><strong>Info</strong></a>
+                                   </li>
+                                   <li class="nav-item">
+                                     <a class="nav-link active text-muted" href="{% url 'introduce_service' %}" style="color:black;"><strong>Service</strong></a>
+                                   </li>
+                                   <li class="nav-item">
+                                     <a class="nav-link active text-muted" href="{% url 'post_new' %}" style="color:black;"><strong>Request</strong></a>
+                                   </li>
+                                   <li class="nav-item">
+                                     <a class="nav-link active text-muted" href="." style="color:black;"><strong>Feedback</strong></a>
+                                   </li>
+                                   <li class="nav-item">
+                                     <a class="nav-link active text-muted" href="." style="color:black;"><strong>Help</strong></a>
+                                   </li>
+                      </ul>
+            </div>
+        </div>
+    </div>
+</div>
+</nav>
+ -->
+
+
+
+
+    </header>
+
+
+    {% block content %}
+    {% endblock %}
+
+    <footer class="text-muted">
+      <div class="container">
+          <br><p class="float-right">Voithru Beta Service &copy; JJ</p></br>
+          <br><p class="float-right">Contact us, voithru@voithru.com</p></br>
+      </div>
+    </footer>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script>window.jQuery || document.write('<script src="../../../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+  </body>
+</html>

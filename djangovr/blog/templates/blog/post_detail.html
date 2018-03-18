@@ -1,0 +1,103 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+<div class="container" style="height:550px;">
+    <table class="table" style="vertical-align:middle; margin:100px 0 0 0;">
+        <tbody>
+            <tr>
+                <th scope="row">강의 제목</th>
+                <td>{{ post.lec }}</td>
+            </tr>
+            <tr>
+                <th scope="row">강사</th>
+                <td>{{ post.lec_teacher }}</td>
+            </tr>
+            <tr>
+                <th scope="row">강의 배포 회사</th>
+                <td>{{ post.lec_company }}</td>
+            </tr>
+            <tr>
+                <th scope="row">강의 주소</th>
+                <td>{{ post.lec_url }}</td>
+            </tr>
+            <!-- <tr>
+                <th scope="row">작성자</th>
+                <td>{{ post.username }}</td>
+            </tr> -->
+            <tr>
+                <th scope="row">Request 일시</th>
+                <td>{{ post.published_date }}</td>
+            </tr>
+            <tr>
+                <th scope="row">Join 횟수</th>
+                <td>{{ post.view_cnt }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- <form action="" method="post">
+        <table class="table" style="vertical-align:middle; margin:100px 0 0 0;">
+          <tbody>
+            <tr>
+                <th scope="row">이름</th>
+
+                <td>{% csrf_token %}{{ form.username }}</td>
+            </tr>
+            <tr>
+                <th scope="row">전화번호</th>
+
+                <td>{% csrf_token %}{{ form.phone_num }}</td>
+            </tr>
+            <tr>
+                <th scope="row">이메일</th>
+
+                <td>{% csrf_token %}{{ form.email }}</td>
+            </tr>
+
+          </tbody>
+
+        </table>
+        <button type="submit" class="save btn btn-secondary">버튼</button>
+    </form>
+ -->
+
+</div>
+<div class="container" style="height:750px; display:table;">
+    <div class="content" style="display:table-cell; vertical-align:middle;">
+    <form method="POST" class="post-form">
+      <div class="form-row">
+        <div class="form-group col-md-6">
+            <label><strong>이름</strong></label>
+            {% csrf_token %}
+            {{ form.username }}
+        </div>
+        <div class="form-group col-md-6">
+            <label><strong>전화번호</strong></label>
+            {% csrf_token %}
+            {{ form.phone_num }}
+        </div>
+      </div>
+
+
+      <div class="form-row">
+        <div class="form-group col-md-6">
+            <label><strong>이메일</strong></label>
+            {% csrf_token %}
+            {{ form.email }}
+        </div>
+
+      </div>
+      <div class="form-group">
+            <label><strong>문의 사항</strong></label>
+            {% csrf_token %}
+            {{ form.description }}
+      </div>
+      <div class="float-right">
+      <button type="submit" class="save btn btn-secondary">Request</button>
+      </div>
+    </form>
+    </div>
+</div>
+
+
+{% endblock %}
