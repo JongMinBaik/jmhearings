@@ -66,35 +66,17 @@ def post_detail(request, pk):
     post.save()
 
     if request.method == "POST":
-        form = JoinForm(request.POST, instance=post)
+        form = JoinForm(request.POST)
         if form.is_valid():
-            post = form.save(commit=False)
-            post.author = request.user
-            post.published_date = timezone.now()
+            join_post = form.save(commit=False)
+            join_post.j_user = post
+            join_post.j_username = request.user
             post.view_cnt += 1
             post.save()
+            join_post.save()
             return redirect('post_list')
 
     else:
         form = JoinForm()
 
     return render(request, 'blog/post_detail.html', {'post':post, 'form':form})
-
-
-
-
-#
-# def join_new(request):
-#     if request.method == "POST":
-#         form = JoinForm(request.POST)
-#         if form.is_valid():
-#             post = form.save(commit=False)
-#             post.author = request.user
-#             post.published_date = timezone.now()
-#             post.save()
-#             post.view_cnt += 1
-#             return redirect('post_list')
-#
-#     else:
-#         form = JoinForm()
-#     return render(request, 'blog/post_detail.html', {'form': form})

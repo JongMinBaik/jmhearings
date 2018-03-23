@@ -40,3 +40,13 @@ class Request(models.Model):
 
     def __str__(self):
         return self.lec
+
+class Join(models.Model):
+    j_user = models.ForeignKey('Request', on_delete=models.CASCADE)
+    j_username = models.CharField(max_length=50, blank=True)
+    j_phone_num = models.CharField(max_length=50, blank=True)
+    j_email = models.EmailField()
+    j_created_date = models.DateTimeField(default=timezone.now)
+
+    def __str__(self):
+        return self.j_username

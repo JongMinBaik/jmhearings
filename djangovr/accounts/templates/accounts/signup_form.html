@@ -1,8 +1,14 @@
+{% extends 'blog/base.html' %}
+{% load static %}
 
+
+{% block content %}
 <form action="" method="post">
     {% csrf_token %}
     <table>
-        {{ form.as_table }}
+        {{ form_user.as_table }}
+        {{ form_profile.as_table }}
     </table>
     <input type="submit" />
 </form>
+{% endblock %}
