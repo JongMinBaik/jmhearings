@@ -1,5 +1,5 @@
 from django import forms
-from .models import Request, Join
+from .models import Request, Join, Helpdesk
 from model_utils import Choices
 
 class PostForm(forms.ModelForm):
@@ -44,3 +44,25 @@ class StatusForm(forms.ModelForm):
     class Meta:
         model = Request
         fields = ('status',)
+
+
+class HelpdeskPostForm(forms.ModelForm):
+    LOCK = '잠금'
+    UNLOCK = '전체공개'
+
+    LOCK_CHECK = [
+        (LOCK, '잠금'),
+        (UNLOCK, '전체공개'),
+    ]
+
+    h_title = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control'}))
+    h_lock_checked = forms.ChoiceField(
+        choices=[
+            (LOCK, '잠금'),
+            (UNLOCK, '전체공개'),
+        ],
+    )
+    h_description = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control'}))
+    class Meta:
+        model = Helpdesk
+        fields = ('h_title', 'h_lock_checked', 'h_description',)

@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.utils import timezone
-from .models import Request
-from .forms import PostForm, JoinForm, StatusForm
+from .models import Request, Helpdesk
+from .forms import PostForm, JoinForm, StatusForm, HelpdeskPostForm
 from django.shortcuts import redirect
 
 def introduce_voithru(request):
@@ -80,3 +80,45 @@ def post_detail(request, pk):
         form = JoinForm()
 
     return render(request, 'blog/post_detail.html', {'post':post, 'form':form})
+
+
+#helpdesk 관련 사안들
+#helpdesk list
+def help_list(request):
+    candidates = Helpdesk.objects.all()
+    posts = Helpdesk.objects.filter(h_created_date__lte=timezone.now()).order_by('h_created_date')
+    return render(request, 'blog/help_list.html', {'candidates':candidates, 'posts':posts})
+
+#helpdesk 클릭시
+# def help_detail(request, pk):
+#     post = get_object_or_404(Helpdesk, pk=pk)
+#     post.save()
+#
+#     if request.method == "POST":
+#         form = HelpdeskPostForm(request.POST)
+#         if form.is_valid():
+#             help_post = form.save(commit=False)
+#             help_post.h_user = post
+#             help_post.save()
+#             return redirect('help_list')
+
+# #helpdesk 수정
+# def help_edit(request, pk):
+#     post = get_object_or_404(Helpdesk, pk=pk)
+#     if request.method == "POST":
+#         form = HelpdeskPostForm(request.POST,)
+
+
+#helpdesk 글쓰기 확정 버튼 누르기
+def help_new(request):
+    if request.method == "POST":
+        form = HelpdeskPostForm(request.POST)
+        if form.is_valid():
+            board = form.save(commit=False)
+            board.h_user = request.user
+            board.h_created_date = timezone.now()
+            board.save()
+            return redirect('help_list')
+    else:
+        form = HelpdeskPostForm()
+    return render(request, 'blog/help_new.html', {'form':form})

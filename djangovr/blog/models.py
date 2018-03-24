@@ -41,6 +41,7 @@ class Request(models.Model):
     def __str__(self):
         return self.lec
 
+#Join할 때 모델
 class Join(models.Model):
     j_user = models.ForeignKey('Request', on_delete=models.CASCADE)
     j_username = models.CharField(max_length=50, blank=True)
@@ -50,3 +51,22 @@ class Join(models.Model):
 
     def __str__(self):
         return self.j_username
+
+#helpdesk post 모델
+class Helpdesk(models.Model):
+    LOCK = '잠금'
+    UNLOCK = '전체공개'
+
+    LOCK_CHECK = [
+        (LOCK, '잠금'),
+        (UNLOCK, '전체공개'),
+    ]
+
+    h_user = models.ForeignKey('auth.User', on_delete=models.CASCADE)
+    h_created_date = models.DateTimeField(default=timezone.now)
+    h_title = models.CharField(max_length=100, blank=True)
+    h_description = models.TextField()
+    h_lock_checked = models.CharField(choices=LOCK_CHECK, max_length=20, default=UNLOCK)
+
+    def __str__(self):
+        return self.title

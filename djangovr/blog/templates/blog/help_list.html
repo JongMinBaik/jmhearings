@@ -1,0 +1,35 @@
+{% extends 'blog/base.html' %}
+{% load staticfiles %}
+
+
+{% block content %}
+<main role="main">
+    <div class="container" style="display:table; height:200px;">
+            <div class="text-center" style="padding-bottom: 70px; display:table-cell; vertical-align:middle;">
+                <h3 class="text-secondary">Helpdesk</h3>
+                <p><a href="{% url 'help_new' %}" class="btn btn-dark">글쓰기</a></p>
+            </div>
+    </div>
+         <div class="container">
+              <div class="row">
+                  {% for post in posts %}
+                  <div class="col-md-4 ">
+                      <div class="card mb-12 box-shadow border-dark mb-3">
+                          <div class="card-header">
+                            <a href="{% url 'post_detail' pk=post.pk %}" style="color:black;"><strong>{{ post.lec }}</strong></a>
+
+
+                          <div class="card-body">
+                              <p class="card-text">No : {{ post.id }}</p>
+                              <p class="card-text">제목 : {{ post.h_title }}</p>
+                              <p class="card-text">잠금상태 : {{ post.h_lock_checked }}</p>
+                              <p class="card-text"><small>{{ post.created_date }}</small></p>
+
+                          </div>
+                      </div>
+                  </div>
+                  {% endfor %}
+              </div>
+         </div>
+</main>
+{% endblock %}

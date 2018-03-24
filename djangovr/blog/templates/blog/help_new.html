@@ -1,0 +1,29 @@
+{% extends 'blog/base.html' %}
+{% load staticfiles %}
+
+
+{% block content %}
+<form method="POST" class="post-form">
+  <div class="form-row">
+    <div class="form-group col-md-6">
+        <label><strong>제목</strong></label>
+        {% csrf_token %}
+        {{ form.h_title }}
+    </div>
+    <div class="form-group col-md-6">
+        <label><strong>잠금설정</strong></label>
+        {% csrf_token %}
+        {{ form.h_lock_checked }}
+    </div>
+  </div>
+  <div class="form-group">
+        <label><strong>본문</strong></label>
+        {% csrf_token %}
+        {{ form.h_description }}
+  </div>
+
+  <div class="float-right">
+  <button type="submit" class="save btn btn-secondary">제출</button>
+  </div>
+</form>
+{% endblock %}
