@@ -23,7 +23,14 @@
                               <p class="card-text">No : {{ post.id }}</p>
                               <p class="card-text">제목 : {{ post.h_title }}</p>
                               <p class="card-text">잠금상태 : {{ post.h_lock_checked }}</p>
-                              <p class="card-text"><small>{{ post.created_date }}</small></p>
+                              <p class="card-text"><small>{{ post.h_created_date }}</small></p>
+
+                              <div class="d-flex justify-content-between align-items-center">
+                                  <div class="btn-group">
+                                      <button type="button" class="btn btn-sm btn-outline-secondary"><a href="{% url 'help_detail' pk=post.pk %}" style="color:black;">Join</a></button>
+
+                                  </div>
+                                </div>
 
                           </div>
                       </div>

@@ -4,6 +4,22 @@ from .models import Request, Helpdesk
 from .forms import PostForm, JoinForm, StatusForm, HelpdeskPostForm
 from django.shortcuts import redirect
 
+def published_post_list(request):
+    candidates = Request.objects.all()
+    posts = Request.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
+    if request.method == "POST":
+            form = StatusForm(request.POST)
+            if form.is_valid():
+                post_test = Request.objects.get(id=request.POST['post.id'])
+                post_test.status = request.POST.get('status', False)  # form.save(commit=False)
+                post_test.author = request.user
+                post_test.save()
+                return redirect('published_post_list')
+    else:
+        form = StatusForm()
+    return render(request, 'blog/published_post_list.html', {'posts': posts, 'form': form, 'candidates': candidates})
+
+
 def introduce_voithru(request):
     return render(request, 'blog/introduce_voithru.html')
 
@@ -90,17 +106,21 @@ def help_list(request):
     return render(request, 'blog/help_list.html', {'candidates':candidates, 'posts':posts})
 
 #helpdesk 클릭시
-# def help_detail(request, pk):
-#     post = get_object_or_404(Helpdesk, pk=pk)
-#     post.save()
-#
-#     if request.method == "POST":
-#         form = HelpdeskPostForm(request.POST)
-#         if form.is_valid():
-#             help_post = form.save(commit=False)
-#             help_post.h_user = post
-#             help_post.save()
-#             return redirect('help_list')
+def help_detail(request, pk):
+    post = get_object_or_404(Helpdesk, pk=pk)
+    post.save()
+
+    if request.method == "POST":
+        form = HelpdeskPostForm(request.POST)
+        if form.is_valid():
+            help_post = form.save(commit=False)
+            help_post.h_user = post
+            help_post.save()
+            return redirect('help_list')
+    else:
+        form = HelpdeskPostForm()
+
+    return render(request, 'blog/help_detail.html', {'post':post, 'form':form})
 
 # #helpdesk 수정
 # def help_edit(request, pk):

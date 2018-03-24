@@ -1,0 +1,25 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+<div class="container" style="height:550px;">
+    <table class="table" style="vertical-align:middle; margin:100px 0 0 0;">
+        <tbody>
+            <tr>
+                <th scope="row">제목</th>
+                <td>{{ post.h_title }}</td>
+            </tr>
+            <tr>
+                <th scope="row">작성자</th>
+                <td>{{ user.get_username }}</td>
+            </tr>
+            <tr>
+                <th scope="row">본문</th>
+                <td>{{ post.h_description }}</td>
+            </tr>
+
+        </tbody>
+    </table>
+
+</div>
+
+{% endblock %}

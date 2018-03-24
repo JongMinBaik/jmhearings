@@ -6,17 +6,13 @@
 <main role="main">
     <div class="container" style="display:table; height:200px;">
             <div class="text-center" style="padding-bottom: 70px; display:table-cell; vertical-align:middle;">
-                <h3 class="text-secondary">Request and Join for Hearings!</h3>
-                <p><a href="{% url 'post_new' %}" class="btn btn-dark">Request</a></p>
+                <h3 class="text-secondary">Take a Class with Subtitle!</h3>
             </div>
     </div>
-    <!--
-    <img src="{% static 'blog/01.jpg' %}" />
-    -->
          <div class="container">
               <div class="row">
                   {% for post in posts %}
-                  {% if post.status != '배포완료' %}
+                  {% if post.status == '배포완료' %}
 
                   <div class="col-md-4 ">
                       <div class="card mb-12 box-shadow border-dark mb-3">
@@ -73,7 +69,7 @@
                               <div class="d-flex justify-content-between align-items-center">
                                   <div class="btn-group">
                                       <button type="button" class="btn btn-sm btn-outline-secondary"><a href="{% url 'post_detail' pk=post.pk %}" style="color:black;">Join</a></button>
-                                      <button type="button" class="btn btn-sm btn-outline-secondary"><a style="color:black;">{{ post.view_cnt }}</a></button>
+                                      <button type="button" class="btn btn-sm btn-outline-secondary"><a style="color:black;">Join Number : {{ post.view_cnt }}</a></button>
                                   </div>
                                   <!--Time 삽입-->
                               </div>

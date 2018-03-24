@@ -11,6 +11,7 @@ urlpatterns = [
     url(r'^service$', views.introduce_service, name='introduce_service'),
     url(r'^introduction$', views.introduce_voithru, name='introduce_voithru'),
     url(r'^helpdesk/$', views.help_list, name='help_list'),
-    # url(r'^helpdesk/(?P<pk>\d+)/$', views.help_detail, name='help_detail'),
+    url(r'^helpdesk/(?P<pk>\d+)/$', views.help_detail, name='help_detail'),
     url(r'^helpdesk/new/$', views.help_new, name='help_new'),
+    url(r'^feedback$', views.published_post_list, name='published_post_list'),
 ]
